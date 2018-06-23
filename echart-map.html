@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>ECharts-map</title>
+    <link href="static/css/bootstrap.css" rel="stylesheet">
+		<link href="static/css/font-awesome.css" rel="stylesheet">
+		<link href="static/css/animations.css" rel="stylesheet">
+		<link href="static/css/content1.0.css" rel="stylesheet">
+		<script type="text/javascript" src="static/js/jquery.min.js"></script>
+		<script type="text/javascript" src="static/js/times.js"></script>
+</head>
+<body>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="height:400px"></div>
+    <div id="box1" class="box-echart-china" _echarts_instance_="ec_1528093204489" style="width: 829.8px; height: 433.78px; -webkit-tap-highlight-color: transparent; user-select: none; background: transparent;">
+        <div style="position: relative; overflow: hidden; width: 830px; height: 434px; padding: 0px; margin: 0px; border-width: 0px; cursor: pointer;">
+            <canvas width="830" height="434" data-zr-dom-id="zr_0" style="position: absolute; left: 0px; top: 0px; width: 830px; height: 434px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); padding: 0px; margin: 0px; border-width: 0px;"></canvas></div>
+            <div style="position: absolute; display: block; border-style: solid; white-space: nowrap; z-index: 9999999; transition: left 0.4s cubic-bezier(0.23, 1, 0.32, 1), top 0.4s cubic-bezier(0.23, 1, 0.32, 1); background-color: rgba(50, 50, 50, 0.7); border-width: 0px; border-color: rgb(51, 51, 51); border-radius: 4px; color: rgb(255, 255, 255); font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 14px; font-family: 'Microsoft YaHei'; line-height: 21px; padding: 5px; left: 274px; top: 246px;"></div>
+        </div>
+    <!-- ECharts单文件引入 -->
+    <script src="http://echarts.baidu.com/build/dist/echarts-all.js"></script>
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts图表
+        var data = {
+            "titleList7":["北京","天津","上海","重庆","河北","河南","云南","辽宁","黑龙江","湖南","安徽","山东","新疆","江苏","浙江","江西","湖北","广西","甘肃","山西","内蒙古","陕西","吉林","福建","贵州","广东","青海","西藏","四川","宁夏","海南","台湾","香港","澳门"],
+            "titleList8":["辽宁","黑龙江","湖南","安徽","山东","新疆","江苏","浙江","江西","湖北","广西","甘肃","山西","内蒙古","陕西","吉林","福建","贵州","广东","青海","西藏","四川","宁夏","海南","台湾"],
+            "titleList9":["甘肃","山西","内蒙古","陕西","吉林","福建","贵州","广东","青海","西藏","四川","宁夏","海南","台湾","香港","澳门","北京","天津","上海"]
+        };
+        //              中国地图业务数据分布
+		var worldMapContainer1 = document.getElementById('main');
+		//box02 = document.getElementById("box1");
+		//box02_h = box02.offsetHeight;
+		//box02_w = box02.offsetWidth;
+		//用于使chart自适应高度和宽度,通过窗体高宽计算容器高宽
+		var resizeWorldMapContainer1 = function() {
+			worldMapContainer1.style.width = box02_w * 0.9 + 'px';
+			worldMapContainer1.style.height = box02_h * 0.82 + 'px';
+		};
+		//设置容器高宽
+		//resizeWorldMapContainer1();
+		// 基于准备好的dom，初始化echarts实例
+		var myChart = echarts.init(worldMapContainer1);
+		// 指定图表的配置项和数据
+		function randomData() {
+			return Math.round(Math.random() * 3000);
+		}
+		var option = {
+			tooltip: {
+				trigger: 'item'
+			},
+			legend: {
+				orient: 'vertical',
+				x: 'left',
+				y: 'bottom',
+				data: [
+					'数据1',
+					'数据2',
+					'数据3'
+				],
+				textStyle: {
+					color: '#ccc'
+				}
+			},
+			visualMap: {
+				min: 0,
+				max: 2500,
+				left: 'right',
+				top: 'bottom',
+				text: ['高', '低'], // 文本，默认为数值文本
+				calculable: true,
+				//		color: ['#26cfe4', '#f2b600', '#ec5845'],
+				textStyle: {
+					color: '#fff'
+				}
+			},
+			series: [{
+					name: '数据1',
+					type: 'map',
+					aspectScale: 0.75,
+					zoom: 1.2,
+					mapType: 'china',
+					roam: false,
+					label: {
+						normal: {
+							show: false
+						},
+						emphasis: {
+							show: false
+						}
+					},
+					data: function() {
+						var serie = [];
+						for(var i = 0; i < data.titleList7.length; i++) {
+							var item = {
+								name: data.titleList7[i],
+								value: randomData()
+							};
+							serie.push(item);
+						}
+						return serie;
+					}()
+
+				},
+				{
+					name: '数据2',
+					type: 'map',
+					mapType: 'china',
+					label: {
+						normal: {
+							show: true
+						},
+						emphasis: {
+							show: true
+						}
+					},
+					data: function() {
+						var serie = [];
+						for(var i = 0; i < data.titleList8.length; i++) {
+							var item = {
+								name: data.titleList8[i],
+								value: randomData()
+							};
+							serie.push(item);
+						}
+						return serie;
+					}()
+
+				},
+				{
+					name: '数据3',
+					type: 'map',
+					mapType: 'china',
+					label: {
+						normal: {
+							show: true
+						},
+						emphasis: {
+							show: true
+						}
+					},
+					data: function() {
+						var serie = [];
+						for(var i = 0; i < data.titleList9.length; i++) {
+							var item = {
+								name: data.titleList9[i],
+								value: randomData()
+							};
+							serie.push(item);
+						}
+						return serie;
+					}()
+
+				}
+			]
+		};
+
+		// 使用刚指定的配置项和数据显示图表。
+		myChart.setOption(option);
+
+		//用于使chart自适应高度和宽度
+		window.onresize = function() {
+			//重置容器高宽
+			resizeWorldMapContainer1();
+			myChart.resize();
+		};
+
+    </script>
+    <!-- JavaScript -->
+		<script type="text/javascript" src="static/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="static/js/echarts.min.js"></script>
+		<script type="text/javascript" src="static/js/china.js"></script>
+		<script type="text/javascript" src="static/js/angular.min.js"></script>
+</body>
