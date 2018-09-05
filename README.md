@@ -1,1 +1,3 @@
-# frontend echart demo
+# 开发技术杂项
+
+### 主要是在项目中使用到的前端展示技术，python操作mysql数据库脚本、调用存储过程、shell脚本等
